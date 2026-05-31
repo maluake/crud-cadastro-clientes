@@ -6,7 +6,7 @@ class Cliente(models.Model):
     email = models.EmailField()
     telefone = models.CharField(max_length=20)
     endereco = models.CharField(max_length=200)
-    cidade = models.CharField(max_length=50)
+    cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
 
     def __str__(self):
