@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 
+{% block title %}Editar cliente{% endblock %}
+
 {% block content %}
 
-<h2>Editar Cliente</h2>
+<h1 class="h2 mb-4">Editar Cliente</h1>
 
-<form method="POST">
+<form method="POST" novalidate>
 
     {% csrf_token %}
 
-    {{ form.as_p }}
+    {% include 'clientes/_campos.html' %}
 
-    <button class="btn btn-warning">
+    <button type="submit" class="btn btn-warning">
         Atualizar
     </button>
 
-    <a href="/" class="btn btn-secondary">
+    <a href="{% url 'listar' %}" class="btn btn-secondary">
         Voltar
     </a>
 

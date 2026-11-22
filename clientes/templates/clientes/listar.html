@@ -2,16 +2,23 @@
 
 {% block content %}
 
-<h2>Clientes</h2>
+<h1 class="h2 mb-4">Clientes</h1>
 
-<form method="GET" class="mb-3">
-
-    <input
-        type="text"
-        name="busca"
-        class="form-control"
-        placeholder="Buscar cliente">
-
+<form method="GET" class="mb-3" role="search">
+    <label for="busca" class="form-label">Buscar por nome, CPF ou e-mail</label>
+    <div class="input-group">
+        <input
+            type="search"
+            id="busca"
+            name="busca"
+            value="{{ busca }}"
+            class="form-control"
+            placeholder="Ex.: Maria, 123.456 ou @email.com">
+        <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+        {% if busca %}
+        <a href="{% url 'listar' %}" class="btn btn-outline-secondary">Limpar</a>
+        {% endif %}
+    </div>
 </form>
 
 <a href="{% url 'novo' %}"
@@ -21,15 +28,16 @@
 
 </a>
 
-<table class="table table-striped">
+<div class="table-responsive">
+<table class="table table-striped align-middle">
 
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Ações</th>
+            <th scope="col">Nome</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">Ações</th>
         </tr>
     </thead>
 
@@ -40,21 +48,23 @@
         <tr>
 
             <td>{{ cliente.nome }}</td>
-            <td>{{ cliente.cpf }}</td>
+            <td class="text-nowrap">{{ cliente.cpf }}</td>
             <td>{{ cliente.email }}</td>
             <td>{{ cliente.telefone }}</td>
 
-            <td>
+            <td class="text-nowrap">
 
                 <a href="{% url 'editar' cliente.id %}"
-                   class="btn btn-warning btn-sm">
+                   class="btn btn-warning btn-sm"
+                   aria-label="Editar {{ cliente.nome }}">
 
                    Editar
 
                 </a>
 
                 <a href="{% url 'excluir' cliente.id %}"
-                   class="btn btn-danger btn-sm">
+                   class="btn btn-danger btn-sm"
+                   aria-label="Excluir {{ cliente.nome }}">
 
                    Excluir
 
@@ -64,10 +74,19 @@
 
         </tr>
 
+    {% empty %}
+
+        <tr>
+            <td colspan="5" class="text-center text-muted py-4">
+                {% if busca %}Nenhum cliente encontrado para "{{ busca }}".{% else %}Nenhum cliente cadastrado ainda.{% endif %}
+            </td>
+        </tr>
+
     {% endfor %}
 
     </tbody>
 
 </table>
+</div>
 
 {% endblock %}
