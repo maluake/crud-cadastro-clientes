@@ -2,8 +2,6 @@
 
 Aplicação web em **Python + Django + MySQL** para cadastrar, buscar, editar e excluir clientes, com acesso restrito por login e validação de CPF.
 
-Foi o meu primeiro projeto completo com Django: modelo, formulário, views, rotas, templates e banco relacional, do zero até o CRUD funcionando.
-
 <p>
   <img src="docs/img/lista-desktop.png" alt="Lista de clientes com busca, botões de editar e excluir" width="720">
 </p>
@@ -22,6 +20,11 @@ Foi o meu primeiro projeto completo com Django: modelo, formulário, views, rota
 | Validação de CPF | No celular |
 |---|---|
 | <img src="docs/img/validacao-cpf.png" alt="Formulário mostrando o erro 'CPF inválido' no campo CPF" width="420"> | <img src="docs/img/lista-celular.png" alt="Lista de clientes em tela de celular" width="200"> |
+
+<p>
+  <img src="docs/img/login.png" alt="Tela de login com campos de usuário e senha" width="560"><br>
+  <sub>Tela de login: o acesso aos dados dos clientes exige usuário e senha.</sub>
+</p>
 
 ## Tecnologias
 
@@ -123,4 +126,4 @@ São 20 testes cobrindo validação de CPF, login obrigatório em todas as telas
 
 A versão inicial (modelo, formulário, views, templates e conexão com MySQL) foi desenvolvida por mim em maio de 2026, durante os estudos de Django.
 
-Em novembro de 2026, fiz uma revisão do projeto **com auxílio do Claude (IA da Anthropic)**, registrada no histórico como coautoria: login obrigatório, validação de CPF, busca, configurações por variáveis de ambiente, migração pendente, testes automatizados e CI. Revisei e testei essas mudanças antes de incorporá-las.
+Em novembro de 2026, fiz uma revisão do projeto **com auxílio do Claude (IA da Anthropic)**, registrada no histórico como coautoria: login obrigatório, validação de CPF, busca, configurações por variáveis de ambiente, migração pendente, testes automatizados e CI.
