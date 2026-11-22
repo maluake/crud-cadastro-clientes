@@ -111,6 +111,8 @@ São 20 testes cobrindo validação de CPF, login obrigatório em todas as telas
 - Fora do modo de desenvolvimento, os cookies de sessão e CSRF só trafegam por HTTPS.
 - **Histórico:** versões antigas deste repositório tinham a chave de desenvolvimento do Django escrita no `settings.py`. Ela continua visível no histórico do Git e **não deve ser usada**. Gere sempre uma chave nova no seu `.env`.
 
+**Melhoria de segurança pendente:** ainda **não há limite de tentativas de login**, então alguém poderia tentar adivinhar senhas repetidamente. Isso é aceitável para uso local, mas **precisa ser resolvido antes de qualquer publicação na internet**, por exemplo bloqueando temporariamente o acesso depois de várias tentativas erradas.
+
 ## Limitações conhecidas
 
 - Não há cadastro público de usuários nem perfis de permissão: todo usuário autenticado pode ver e alterar todos os clientes.
