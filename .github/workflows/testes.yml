@@ -1,0 +1,46 @@
+# Roda os testes automatizados a cada push e pull request.
+# Usa um MySQL temporário criado só para o teste; nenhum dado real é acessado.
+name: Testes
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: senha-somente-ci
+          MYSQL_DATABASE: cadastro_clientes
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -psenha-somente-ci"
+          --health-interval=5s --health-timeout=5s --health-retries=20
+    env:
+      DJANGO_SECRET_KEY: chave-somente-ci
+      DJANGO_DEBUG: "False"
+      DB_ENGINE: mysql
+      DB_NAME: cadastro_clientes
+      DB_USER: root
+      DB_PASSWORD: senha-somente-ci
+      DB_HOST: 127.0.0.1
+      DB_PORT: "3306"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+      - name: Bibliotecas do cliente MySQL (para o mysqlclient)
+        run: sudo apt-get update && sudo apt-get install -y pkg-config default-libmysqlclient-dev
+      - run: pip install -r requirements.txt
+      - name: Configuração do Django
+        run: python manage.py check
+      - name: Nenhuma migração pendente
+        run: python manage.py makemigrations --check --dry-run
+      - name: Testes
+        run: python manage.py test -v 2
